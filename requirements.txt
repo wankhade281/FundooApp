@@ -1,0 +1,5 @@
+PyJWT
+dotenv
+mysql-connector-python==8.0.18
+protobuf==3.11.1
+six==1.13.0
