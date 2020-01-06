@@ -15,17 +15,14 @@ class Profile:
             responce_data = {'success': True, 'data': [], 'message': ""}
             data = {'profile': form['profile'].value}
             db_obj = DatabaseManage()
-            db_obj.create_profile(data)
-            responce_data.update({'success': True, 'data': [], 'message': "Pic saved Successfully"})
-            Response(self).jsonResponse(status=200, data=responce_data)
-            # result = db_obj.profile_exist(data)
-            # if result:
-            #     db_obj.create_profile(data)
-            #     responce_data.update({'success': True, 'data': [], 'message': "Pic saved Successfully"})
-            #     Response(self).jsonResponse(status=200, data=responce_data)
-            # else:
-            #     responce_data.update({'success': False, 'data': [], 'message': "Profile already Exist"})
-            #     Response(self).jsonResponse(status=404, data=responce_data)
+            result = db_obj.profile_exist(data)
+            if result:
+                db_obj.create_profile(data)
+                responce_data.update({'success': True, 'data': [], 'message': "Pic saved Successfully"})
+                Response(self).jsonResponse(status=200, data=responce_data)
+            else:
+                responce_data.update({'success': False, 'data': [], 'message': "Profile already Exist"})
+                Response(self).jsonResponse(status=404, data=responce_data)
 
     def read_pic(self):
         if self.path == '/profile/read':
@@ -51,7 +48,7 @@ class Profile:
                 responce_data.update({'success': False, 'data': [], 'message': "Profile Not Exist"})
                 Response(self).jsonResponse(status=404, data=responce_data)
             else:
-                db_obj.update_profile(data)
+                db_obj.update_profile(data['profile'], data['newprofile'])
                 responce_data.update({'success': True, 'data': [], 'message': "Profile Update Successfully"})
                 Response(self).jsonResponse(status=200, data=responce_data)
 

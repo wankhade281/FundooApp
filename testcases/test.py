@@ -10,5 +10,5 @@ from configuration.db_connection import Database
 #     assert sql_out == 1
 
 
-def test_register():
+# def test_register():
 

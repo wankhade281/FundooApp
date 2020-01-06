@@ -1,8 +1,8 @@
 import base64
 import re
-import io
+
 import jwt
-from PIL import Image
+
 
 from configuration.db_connection import Database
 
@@ -14,8 +14,6 @@ class DatabaseManage:
 
     def __init__(self):  # This function is used to form a connection with database
         self.mydbobj = Database()
-        # self.mydb = mydbobj.connection(self)
-        # self.mycursor = self.mydb.cursor()
 
     def registration(self, data):  # This function is used to store a registration entry into database using sql command
         query = "INSERT INTO tblRegistration(email,password) VALUES ('" + data['email'] + "','" + data[
@@ -96,8 +94,11 @@ class DatabaseManage:
         print(entry)
 
     def profile_exist(self, data):
-        query = "SELECT * from profilepic where Image = '" + data['profile'] + "'"
+        image = base64.b64encode(data['profile'])
+        valid_image = image.decode("utf-8")
+        query = "SELECT * from profilepic where Image = '" + valid_image + "'"
         result = self.mydbobj.run_query(query)
+        print(result)
         if len(result):
             return False
         else:
@@ -105,35 +106,18 @@ class DatabaseManage:
         pass
 
     def create_profile(self, data):
-
-        # print(type(data['profile']))
-        # s = str(data['profile'])
         image = base64.b64encode(data['profile'])
         valid_image = image.decode("utf-8")
-        print(type(valid_image))
-        print(len(valid_image))
-        # print('Original String =', s)
-        # b = s.decode("utf-8")
-        # print('Original String =', b)
-        # print(type(s))
-
-        # image_data = data['profile']
-        # image = Image.open(io.BytesIO(image_data))
-        # image.show()
-        # print(type(image))
-
-        # data = data['profile']
-        # x = b'data'
-        # l = x.decode('utf-8')
-        # print(type(l))
-        # print(l)
         query = "INSERT INTO profilepic(Image) VALUES('"+valid_image+"')"
         self.mydbobj.execute(query)
         print("Entry create Successfully")
 
-    def update_profile(self, data):
-        print(data)
-        query = "UPDATE profilepic SET Image = '" + data['newprofile'] + "' WHERE  Image = '" + data['profile'] + "'"
+    def update_profile(self, oldimage, newimage):
+        image = base64.b64encode(oldimage)
+        oldimage1 = image.decode("utf-8")
+        image = base64.b64encode(newimage)
+        newimage1 = image.decode("utf-8")
+        query = "UPDATE profilepic SET Image = '" + oldimage1 + "' WHERE  Image = '" + newimage1 + "'"
         self.mydbobj.execute(query)
         print("Data update Successfully")
 
