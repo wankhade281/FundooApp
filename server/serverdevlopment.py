@@ -7,26 +7,24 @@ from view.profile import Profile, ListingPages
 
 
 class ProfilePic(BaseHTTPRequestHandler):  # This class is used to perform operations related to http request
-    def __init__(self, request, client_address, server):
-        self.p = Profile
-        self.l = ListingPages
-        super().__init__(request, client_address, server)
 
     def do_GET(self):
-        self.p.read_pic(self)
-        self.l.isArchieve(self)
+        p = Profile
+        if self.path == '/profile/read':
+            p.read_pic()
+        # self.l.isArchieve(self)
 
-    def do_PUT(self):
-        self.p.update_pic(self)
-        self.l.isArchieve(self)
-        self.l.isTrash(self)
+    # def do_PUT(self):
+    #     self.p.update_pic(self)
+    #     self.l.isArchieve(self)
+    #     self.l.isTrash(self)
 
-    def do_DELETE(self):
-        self.p.delete_pic(self)
+    # def do_DELETE(self):
+    #     self.p.delete_pic(self)
 
-    def do_POST(self):
-        self.p.create_pic(self)
-        self.l.isPinned(self)
+    # def do_POST(self):
+    #     self.p.create_pic(self)
+    #     self.l.isPinned(self)
 
 
 def run(server_class=HTTPServer, handler_class=ProfilePic, addr="localhost", port=8080):
