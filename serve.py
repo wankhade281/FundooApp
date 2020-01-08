@@ -102,7 +102,7 @@ class Server(BaseHTTPRequestHandler):  # This class is used to perform operation
             Response(self).jsonResponse(status=404, data=responce_data)
 
 
-def run(server_class=HTTPServer, handler_class=Server, addr="localhost", port=8080):
+def run(server_class=HTTPServer, handler_class=Server, addr="localhost", port=9090):
     server_address = (addr, port)
     httpd = server_class(server_address, handler_class)
     print(f"httpd server on {addr}:{port}")
@@ -110,4 +110,4 @@ def run(server_class=HTTPServer, handler_class=Server, addr="localhost", port=80
 
 
 if __name__ == "__main__":
-    run(HTTPServer, Server, "localhost", 8080)
+    run(HTTPServer, Server, "localhost", 9090)
