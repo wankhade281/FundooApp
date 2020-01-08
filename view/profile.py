@@ -75,26 +75,22 @@ class Profile:
 
 class ListingPages:
     def isArchieve(self):
-        if self.path == '/isarchive':
-            responce_data = {'success': True, 'data': [], 'message': ""}
-            db_obj = DatabaseManage()
-            db_obj.read_all('isArchive')
-            responce_data.update({'success': True, 'data': [], 'message': "Data Read Successfully"})
-            Response(self).jsonResponse(status=200, data=responce_data)
+        responce_data = {'success': True, 'data': [], 'message': ""}
+        db_obj = DatabaseManage()
+        db_obj.read_all('isArchive')
+        responce_data.update({'success': True, 'data': [], 'message': "Data Read Successfully"})
+        Response(self).jsonResponse(status=200, data=responce_data)
 
     def isPinned(self):
-        if self.path == '/ispinned':
-            responce_data = {'success': True, 'data': [], 'message': ""}
-            db_obj = DatabaseManage()
-            db_obj.read_all('isPinned')
-            responce_data.update({'success': True, 'data': [], 'message': "Data Read Successfully"})
-            Response(self).jsonResponse(status=200, data=responce_data)
+        responce_data = {'success': True, 'data': [], 'message': ""}
+        db_obj = DatabaseManage()
+        db_obj.read_all('isPinned')
+        responce_data.update({'success': True, 'data': [], 'message': "Data Read Successfully"})
+        Response(self).jsonResponse(status=200, data=responce_data)
 
     def isTrash(self):
-        if self.path == '/istrash':
-            responce_data = {'success': True, 'data': [], 'message': ""}
-            db_obj = DatabaseManage()
-            db_obj.read_all('isTrash')
-            responce_data.update({'success': True, 'data': [], 'message': "Data Read Successfully"})
-            Response(self).jsonResponse(status=200, data=responce_data)
-        pass
+        responce_data = {'success': True, 'data': [], 'message': ""}
+        db_obj = DatabaseManage()
+        db_obj.read_all('isTrash')
+        responce_data.update({'success': True, 'data': [], 'message': "Data Read Successfully"})
+        Response(self).jsonResponse(status=200, data=responce_data)

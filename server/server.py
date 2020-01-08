@@ -2,6 +2,8 @@ import sys
 
 import jwt
 
+from ..view.profile import Profile, ListingPages
+
 sys.path.insert(0, '/home/admin1/PycharmProjects/FundooApp/')
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from view.registration import FormDetails
@@ -22,6 +24,8 @@ class Server(BaseHTTPRequestHandler):  # This class is used to perform operation
 
     def do_GET(self):
         self._set_headers()
+        p = Profile
+        l = ListingPages
         if self.path == '/register':
             with open('template/registration.html', 'r') as f:
                 html_string_register = f.read()
@@ -45,6 +49,10 @@ class Server(BaseHTTPRequestHandler):  # This class is used to perform operation
         elif self.path == '/read':
             obj = FormDetails
             obj.read(self)
+        elif self.path == '/profile/read':
+            p.read_pic(self)
+        elif self.path == '/isarchive':
+            l.isArchieve(self)
         else:
             with open('template/error.html', 'r') as f:
                 html_string_register = f.read()
@@ -52,16 +60,27 @@ class Server(BaseHTTPRequestHandler):  # This class is used to perform operation
 
     def do_PUT(self):
         obj = FormDetails
+        p = Profile
+        l = ListingPages
         if self.path == '/update':
             obj.update(self)
+        elif self.path == '/profile/update':
+            p.update_pic(self)
+        elif self.path == '/istrash':
+            l.isTrash(self)
 
     def do_DELETE(self):
         obj = FormDetails
-        if self.path == "/delete":
+        p = Profile
+        if self.path == '/profile/delete':
+            p.delete_pic(self)
+        elif self.path == "/delete":
             obj.delete(self)
 
     def do_POST(self):
         # do database operations with posted data
+        p = Profile
+        l = ListingPages
         obj = FormDetails
         if self.path == "/register":
             obj.register(self)
@@ -69,6 +88,10 @@ class Server(BaseHTTPRequestHandler):  # This class is used to perform operation
             obj.login(self)
         elif self.path == '/login/forget':
             obj.forget_password(self)
+        elif self.path == '/profile/create':
+            p.create_pic(self)
+        elif self.path == '/ispinned':
+            l.isPinned(self)
         # elif self.path == "/gettoken":
         #     obj.gettoken(self)
         elif self.path == '/create':
