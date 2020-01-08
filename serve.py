@@ -1,6 +1,6 @@
+from http.server import HTTPServer, BaseHTTPRequestHandler
 import jwt
 from view.profile import Profile, ListingPages
-from http.server import HTTPServer, BaseHTTPRequestHandler
 from view.registration import FormDetails
 from view.responce import Response
 
