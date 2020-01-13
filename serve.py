@@ -1,3 +1,4 @@
+import os
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import jwt
 from view.profile import Profile, ListingPages
@@ -102,7 +103,7 @@ class Server(BaseHTTPRequestHandler):  # This class is used to perform operation
             Response(self).jsonResponse(status=404, data=responce_data)
 
 
-def run(server_class=HTTPServer, handler_class=Server, addr="localhost", port=9090):
+def run(server_class=HTTPServer, handler_class=Server, addr="localhost", port=int(os.getenv("SERVER_HOST_PORT"))):
     server_address = (addr, port)
     httpd = server_class(server_address, handler_class)
     print(f"httpd server on {addr}:{port}")
@@ -110,4 +111,4 @@ def run(server_class=HTTPServer, handler_class=Server, addr="localhost", port=90
 
 
 if __name__ == "__main__":
-    run(HTTPServer, Server, "localhost", 9090)
+    run(HTTPServer, Server, "localhost", int(os.getenv("SERVER_HOST_PORT")))

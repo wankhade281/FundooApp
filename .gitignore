@@ -103,6 +103,7 @@ celerybeat.pid
 
 # Environments
 .env
+microservices
 venv
 envpython
 env/
